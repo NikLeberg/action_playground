@@ -63,4 +63,6 @@ jobs:
     if: always()
     steps:
       - name: Successful jobs?
-        run: echo "Seems so."
+        run: |
+          echo "Seems so."
+          echo "${{ toJSON(needs) }}"
