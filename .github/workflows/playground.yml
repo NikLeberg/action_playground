@@ -59,6 +59,7 @@ jobs:
       run:
         shell: bash
     needs: [job2, job3]
+    if: allways()
     steps:
       - name: Successful jobs?
         run: echo "Seems so."
