@@ -66,3 +66,5 @@ jobs:
         run: |
           echo "Seems so."
           echo "${{ toJSON(needs) }}"
+          test ! -z ${{ contains(needs.*.result, 'failure') }}
+          test ! -z ${{ contains(needs.*.result, 'cancelled') }}
