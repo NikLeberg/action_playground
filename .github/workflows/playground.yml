@@ -64,7 +64,12 @@ jobs:
     steps:
       - name: Successful jobs?
         run: |
-          echo "Seems so."
           echo "${{ toJSON(needs) }}"
-          test ! -z ${{ contains(needs.*.result, 'failure') }}
-          test ! -z ${{ contains(needs.*.result, 'cancelled') }}
+          if [ ${{ !contains(needs.*.result, 'failure') }} ]; then
+            echo "On of the previous jobs has failed!"
+            false
+          fi
+          if [ ${{ !contains(needs.*.result, 'cancelled') }} ]; then
+            echo "On of the previous jobs was cancelles!"
+            false
+          fi
