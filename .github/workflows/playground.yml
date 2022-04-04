@@ -21,8 +21,8 @@ jobs:
       - name: Jobs to run
         id: job1
         run: |
-          echo "::set-output name=run-job2::true"
-          echo "::set-output name=run-job3::false"
+          echo "::set-output name=run-job2::'true'"
+          echo "::set-output name=run-job3::'false'"
 
   job2:
     name: Job 2
