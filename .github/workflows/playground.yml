@@ -1,0 +1,68 @@
+name: playground
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+
+  job1:
+    name: Detect Changes
+    runs-on: ubuntu-20.04
+    defaults:
+      run:
+        shell: bash
+    outputs:
+      run-job2: ${{steps.job1.outputs.run-job2}}
+      run-job3: ${{steps.job1.outputs.run-job3}}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Jobs to run
+        id: job1
+        run: |
+          echo "::set-output name=run-job2::true"
+          echo "::set-output name=run-job3::false"
+
+  job2:
+    name: DockerHub
+    needs: job1
+    if: needs.job1.outputs.run-job2
+    runs-on: ubuntu-20.04
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Run job 2
+        id: job2
+        run: |
+          echo "Running job2!"
+
+  job2:
+    name: DockerHub
+    needs: job1
+    if: needs.job1.outputs.run-job2
+    runs-on: ubuntu-20.04
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Run job 3
+        id: job2
+        run: |
+          echo "Running job2!"
+
+  summarize_job:
+    name: Summarize jobs
+    runs-on: ubuntu-20.04
+    defaults:
+      run:
+        shell: bash
+    needs: [job2, job3]
+    steps:
+      - name: Successful jobs?
+        run: echo "Seems so."
