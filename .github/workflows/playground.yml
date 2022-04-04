@@ -29,7 +29,7 @@ jobs:
           echo "::set-output name=run-job3::false"
 
   job2:
-    name: DockerHub
+    name: Job 2
     needs: job1
     if: needs.job1.outputs.run-job2
     runs-on: ubuntu-20.04
@@ -42,19 +42,19 @@ jobs:
         run: |
           echo "Running job2!"
 
-  job2:
-    name: DockerHub
+  job3:
+    name: Job 3
     needs: job1
-    if: needs.job1.outputs.run-job2
+    if: needs.job1.outputs.run-job3
     runs-on: ubuntu-20.04
     defaults:
       run:
         shell: bash
     steps:
       - name: Run job 3
-        id: job2
+        id: job3
         run: |
-          echo "Running job2!"
+          echo "Running job3!"
 
   summarize_job:
     name: Summarize jobs
