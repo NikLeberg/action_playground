@@ -21,13 +21,13 @@ jobs:
       - name: Jobs to run
         id: job1
         run: |
-          echo "::set-output name=run-job2::'true'"
-          echo "::set-output name=run-job3::'false'"
+          echo "::set-output name=run-job2::doit"
+          echo "::set-output name=run-job3::nonono"
 
   job2:
     name: Job 2
     needs: job1
-    if: needs.job1.outputs.run-job2 == true
+    if: needs.job1.outputs.run-job2 == 'doit'
     runs-on: ubuntu-20.04
     defaults:
       run:
@@ -41,7 +41,7 @@ jobs:
   job3:
     name: Job 3
     needs: job1
-    if: needs.job1.outputs.run-job3 == true
+    if: needs.job1.outputs.run-job3 == 'doit'
     runs-on: ubuntu-20.04
     defaults:
       run:
