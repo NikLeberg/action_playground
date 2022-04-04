@@ -62,14 +62,14 @@ jobs:
     needs: [job2, job3]
     if: always()
     steps:
-      - name: Successful jobs?
+      - name: Jobs successful?
         run: |
           echo "${{ toJSON(needs) }}"
-          if [ ${{ !contains(needs.*.result, 'failure') }} ]; then
-            echo "On of the previous jobs has failed!"
+          if ${{ contains(needs.*.result, 'failure') }}; then
+            echo "One of the previous jobs has failed!"
             false
           fi
-          if [ ${{ !contains(needs.*.result, 'cancelled') }} ]; then
-            echo "On of the previous jobs was cancelles!"
+          if ${{ contains(needs.*.result, 'cancelled') }}; then
+            echo "One of the previous jobs was cancelled!"
             false
           fi
