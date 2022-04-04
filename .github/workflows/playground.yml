@@ -27,7 +27,7 @@ jobs:
   job2:
     name: Job 2
     needs: job1
-    if: needs.job1.outputs.run-job2
+    if: needs.job1.outputs.run-job2 == true
     runs-on: ubuntu-20.04
     defaults:
       run:
@@ -41,7 +41,7 @@ jobs:
   job3:
     name: Job 3
     needs: job1
-    if: needs.job1.outputs.run-job3
+    if: needs.job1.outputs.run-job3 == true
     runs-on: ubuntu-20.04
     defaults:
       run:
