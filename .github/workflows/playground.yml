@@ -37,7 +37,6 @@ jobs:
         id: job2
         run: |
           echo "Running job2!"
-          false
 
   job3:
     name: Job 3
