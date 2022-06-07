@@ -4,71 +4,28 @@ on: [push]
 
 jobs:
 
-  job1:
-    name: Detect Changes
+  job:
+    name: Test file glob in sh and bash
     runs-on: ubuntu-20.04
-    defaults:
-      run:
-        shell: bash
-    outputs:
-      run-job2: ${{steps.job1.outputs.run-job2}}
-      run-job3: ${{steps.job1.outputs.run-job3}}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - name: Jobs to run
-        id: job1
-        run: |
-          echo "::set-output name=run-job2::doit"
-          echo "::set-output name=run-job3::nonono"
 
-  job2:
-    name: Job 2
-    needs: job1
-    if: needs.job1.outputs.run-job2 == 'doit'
-    runs-on: ubuntu-20.04
-    defaults:
-      run:
-        shell: bash
-    steps:
-      - name: Run job 2
-        id: job2
+      - name: ls
         run: |
-          echo "Running job2!"
+          ls
+      
+      - name: sh?
+        run: |
+          echo crash*
+          echo "---"
+          echo crash*.min
 
-  job3:
-    name: Job 3
-    needs: job1
-    if: needs.job1.outputs.run-job3 == 'doit'
-    runs-on: ubuntu-20.04
-    defaults:
-      run:
+      - name: bash
         shell: bash
-    steps:
-      - name: Run job 3
-        id: job3
         run: |
-          echo "Running job3!"
-
-  summarize_job:
-    name: Summarize jobs
-    runs-on: ubuntu-20.04
-    defaults:
-      run:
-        shell: bash
-    needs: [job2, job3]
-    if: always()
-    steps:
-      - name: Jobs successful?
-        run: |
-          echo "${{ toJSON(needs) }}"
-          if ${{ contains(needs.*.result, 'failure') }}; then
-            echo "One of the previous jobs has failed!"
-            false
-          fi
-          if ${{ contains(needs.*.result, 'cancelled') }}; then
-            echo "One of the previous jobs was cancelled!"
-            false
-          fi
+          echo crash*
+          echo "---"
+          echo crash*.min
