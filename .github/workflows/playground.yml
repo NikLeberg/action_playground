@@ -5,7 +5,7 @@ on: [push]
 jobs:
 
   job:
-    name: Test file glob in sh and bash
+    name: Test different action contexts
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout Repository
@@ -13,19 +13,4 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: ls
-        run: |
-          ls
-      
-      - name: sh?
-        run: |
-          echo crash*
-          echo "---"
-          echo crash*.min
-
-      - name: bash
-        shell: bash
-        run: |
-          echo crash*
-          echo "---"
-          echo crash*.min
+      - uses: hmarr/debug-action@v2
