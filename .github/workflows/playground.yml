@@ -5,27 +5,21 @@ on: [push]
 jobs:
 
   job:
-    name: Test file glob in sh and bash
-    runs-on: ubuntu-20.04
+    name: Test container-options configuration
+    runs-on: ubuntu-latest
+    container: 
+      image: ghcr.io/nikleberg/quartus-prime:latest
+      options: --mac-address=00:ab:ab:ab:ab:ab
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      - name: ls
+      - name: verify mac address
         run: |
-          ls
-      
-      - name: sh?
-        run: |
-          echo crash*
-          echo "---"
-          echo crash*.min
-
-      - name: bash
-        shell: bash
-        run: |
-          echo crash*
-          echo "---"
-          echo crash*.min
+          apt-get -q -y update
+          apt-get -q -y install net-tools lsb-core
+          ifconfig
+          /opt/intelFPGA_lite/21.1/questa_fse/linux_x86_64/mgls/bin/lmhostid
+          /opt/intelFPGA_lite/21.1/questa_fse/linux_x86_64/mgls/bin/lmutil lmdiag
