@@ -7,7 +7,8 @@ jobs:
   job:
     name: Test container-options configuration
     runs-on: ubuntu-latest
-    container: ghcr.io/nikleberg/quartus-prime:latest
+    container: 
+      image: ghcr.io/nikleberg/quartus-prime:latest
       options: --mac-address=00:ab:ab:ab:ab:ab
     steps:
       - name: Checkout Repository
