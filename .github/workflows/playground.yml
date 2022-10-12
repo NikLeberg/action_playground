@@ -16,10 +16,10 @@ jobs:
         with:
           fetch-depth: 0
 
-    - name: verify mac address
-      run: |
-        apt-get -q -y update
-        apt-get -q -y install net-tools lsb-core
-        ifconfig
-        /opt/intelFPGA_lite/21.1/questa_fse/linux_x86_64/mgls/bin/lmhostid
-        /opt/intelFPGA_lite/21.1/questa_fse/linux_x86_64/mgls/bin/lmutil lmdiag
+      - name: verify mac address
+        run: |
+          apt-get -q -y update
+          apt-get -q -y install net-tools lsb-core
+          ifconfig
+          /opt/intelFPGA_lite/21.1/questa_fse/linux_x86_64/mgls/bin/lmhostid
+          /opt/intelFPGA_lite/21.1/questa_fse/linux_x86_64/mgls/bin/lmutil lmdiag
