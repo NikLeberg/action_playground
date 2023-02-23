@@ -15,8 +15,18 @@ jobs:
 
       - name: list large files
         run: |
+          echo "Available storage (pre clean):"
+          df -h
+          echo
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /opt/hostedtoolcache/CodeQL
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /usr/local/.ghcup
           ls -la /opt/hostedtoolcache
           echo
           echo "List of large folders:"
           du -a / | sort -n -r | head -n 50
           echo
+          echo "Available storage (after clean):"
+          df -h
