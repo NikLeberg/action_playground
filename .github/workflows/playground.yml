@@ -5,27 +5,16 @@ on: [push]
 jobs:
 
   job:
-    name: Test file glob in sh and bash
-    runs-on: ubuntu-20.04
+    name: Test some shell code
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      - name: ls
+      - name: list large files
         run: |
-          ls
-      
-      - name: sh?
-        run: |
-          echo crash*
-          echo "---"
-          echo crash*.min
-
-      - name: bash
-        shell: bash
-        run: |
-          echo crash*
-          echo "---"
-          echo crash*.min
+          echo "List of large folders:"
+          du -a / | sort -n -r | head -n 10
+          echo
