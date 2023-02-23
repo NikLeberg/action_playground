@@ -5,27 +5,28 @@ on: [push]
 jobs:
 
   job:
-    name: Test file glob in sh and bash
-    runs-on: ubuntu-20.04
+    name: Test some shell code
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      - name: ls
+      - name: list large files
         run: |
-          ls
-      
-      - name: sh?
-        run: |
-          echo crash*
-          echo "---"
-          echo crash*.min
-
-      - name: bash
-        shell: bash
-        run: |
-          echo crash*
-          echo "---"
-          echo crash*.min
+          echo "Available storage (pre clean):"
+          df -h
+          echo
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /opt/hostedtoolcache/CodeQL
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /usr/local/.ghcup
+          ls -la /opt/hostedtoolcache
+          echo
+          echo "List of large folders:"
+          du -a / | sort -n -r | head -n 50
+          echo
+          echo "Available storage (after clean):"
+          df -h
