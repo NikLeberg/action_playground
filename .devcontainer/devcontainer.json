@@ -1,0 +1,38 @@
+{
+    "name": "${localWorkspaceFolder}",
+    "image": "ghcr.io/nikleberg/dev-base:staging",
+    "runArgs": [
+        "--hostname",
+        "${localWorkspaceFolder}",
+        "--add-host",
+        "host.docker.internal:host-gateway",
+        "--volume",
+        "/dev:/dev",
+        "--device-cgroup-rule",
+        "a 189:* rwm"
+    ],
+    "customizations": {
+        "vscode": {
+            // IDs of extensions installed when the container is created.
+            "extensions": [
+                // C code Intellisense and code formater / helpers.
+                "ms-vscode.cpptools",
+                "twxs.cmake",
+                "cschlosser.doxdocgen",
+                // Detection and easy access to project tasks in tasks.json.
+                "spmeesseman.vscode-taskexplorer"
+            ],
+            // Container specific settings.json values on container create.
+            "settings": {
+                // Trigger format on save & paste
+                "editor.formatOnSave": true,
+                "editor.formatOnPaste": true,
+                // Set C/C++ extension to not sort includes and to not add settings.json
+                "C_Cpp.clang_format_sortIncludes": false,
+                "C_Cpp.autoAddFileAssociations": false,
+                // Slow down scrolling in intergrated terminal
+                "terminal.integrated.mouseWheelScrollSensitivity": 0.2
+            }
+        }
+    }
+}
