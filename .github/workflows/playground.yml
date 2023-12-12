@@ -6,26 +6,13 @@ jobs:
 
   job:
     name: Test file glob in sh and bash
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/nikleberg/dev-base:staging
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
 
-      - name: ls
+      - name: test
         run: |
-          ls
-      
-      - name: sh?
-        run: |
-          echo crash*
-          echo "---"
-          echo crash*.min
-
-      - name: bash
-        shell: bash
-        run: |
-          echo crash*
-          echo "---"
-          echo crash*.min
+          git clone https://github.com/NikLeberg/neorv32_soc.git
+          source neorv32_soc/.decvontainer/.env
+          ghdl --version
