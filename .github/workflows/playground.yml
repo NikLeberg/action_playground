@@ -14,5 +14,5 @@ jobs:
       - name: test
         run: |
           git clone https://github.com/NikLeberg/neorv32_soc.git
-          source neorv32_soc/.decvontainer/.env
+          . neorv32_soc/.devcontainer/.env
           ghdl --version
