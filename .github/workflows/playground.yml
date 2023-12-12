@@ -1,11 +1,11 @@
-name: playground
+name: DooD
 
 on: [push]
 
 jobs:
 
   job:
-    name: Test file glob in sh and bash
+    name: Test DooD
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/nikleberg/dev-base:staging
@@ -13,6 +13,5 @@ jobs:
 
       - name: test
         run: |
-          git clone https://github.com/NikLeberg/neorv32_soc.git
-          . neorv32_soc/.devcontainer/.env
-          ghdl --version
+          docker --help
+          docker images -a
